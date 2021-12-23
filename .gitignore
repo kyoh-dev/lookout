@@ -1,0 +1,8 @@
+.idea/
+local_test/
+data/.venv/
+.pytype/
+__pycache__/
+*.py[cod]
+.DS_Store
+.env

@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  db:
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
+    image: "amazon/dynamodb-local:latest"
+    container_name: dynamodb-local
+    ports:
+      - "27901:8000"
+    volumes:
+      - "./local_test/dynamodb:/home/dynamodblocal/data"
+    working_dir: /home/dynamodblocal
+
+#  app:
+#    build:
+#      context: .
+#    container_name: lookout-app
+#    depends_on:
+#      - db
+#    ports:
+#      - "27902:8080"
+#    environment:
+#      AWS_ACCESS_KEY_ID: "TEST_KEY_ID"
+#      AWS_SECRET_ACCESS_KEY: "TEST_SECRET_ACCESS_KEY"
+#    command:
+#      dynamodb describe-limits --endpoint-url http://db:27901 --region us-west-2
