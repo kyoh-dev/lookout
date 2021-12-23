@@ -1,8 +1,13 @@
-.idea/
-local_test/
-data/.venv/
-.pytype/
-__pycache__/
-*.py[cod]
+# General
+.idea
+local_test
 .DS_Store
 .env
+# Python specific
+data/.venv
+.pytype
+__pycache__
+*.py[cod]
+# JS specific
+app/node_modules
+app/*.tsbuildinfo
