@@ -4,10 +4,10 @@ local_test
 .DS_Store
 .env
 # Python specific
-data/.venv
-.pytype
+db/.venv
 __pycache__
 *.py[cod]
+.mypy_cache
 # JS specific
 app/node_modules
 app/*.tsbuildinfo

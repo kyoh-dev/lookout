@@ -1,10 +1,24 @@
-.PHONY: start clean pytype-check
+ENV_FILE ?= .env
+
+.PHONY: build start clean format mypy migrate
+
+build:
+	@docker-compose build
 
 start:
-	@docker-compose -f docker-compose.dev.yml up
+	@docker-compose up -d
 
 clean:
-	@docker-compose -f docker-compose.dev.yml down --volumes --rmi all
+	@docker-compose down --volumes --rmi all
 
-pytype-check:
-	@pytype ./data
+format:
+	@black ./db/
+
+mypy:
+	@mypy ./db/
+
+migrate: $(ENV_FILE)
+	@dbmate -e TEST_DATABASE_URL up
+
+$(ENV_FILE):
+	@cp -v $(ENV_FILE).example $(ENV_FILE)
