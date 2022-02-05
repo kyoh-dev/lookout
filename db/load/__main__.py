@@ -31,7 +31,7 @@ def parse_args() -> ProgramArguments:
 
 def main(filepath: Path, destination_table: str) -> None:
     # TODO: Read header and check expected columns exist in schema.
-    # TODO: Check source CRS is in expected projection.
+    # TODO: Check source CRS is in expected projection (7844).
     ...
 
 

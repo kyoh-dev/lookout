@@ -3,7 +3,14 @@ from json import dumps
 from fiona.collection import Collection
 
 from db.core.exceptions import DataQualityError, DataTypeError
-from db.load.rec_sites.schema_map import SCHEMA_MAP
+from db.load.common import DbTable
+from db.load.rec_sites.schema import SCHEMA_MAP
+
+table_info = DbTable(
+    table_name="rec_sites",
+    columns=tuple(SCHEMA_MAP.values()),
+    geometry="ST_SetSRID(ST_GeomFromGeoJSON(%(geometry)s), 7844)"
+)
 
 
 def collect_rows(collection: Collection) -> list[tuple[str, ...]]:
@@ -19,10 +26,6 @@ def collect_rows(collection: Collection) -> list[tuple[str, ...]]:
         if geometry["type"] != "Point":
             raise DataTypeError("Unexpected geometry type found in dataset")
 
-        data_row = [properties[col] for col in SCHEMA_MAP]
-        data_row.append(dumps(geometry))
-
-        data_row = tuple(data_row)
-        rows.append(data_row)
+        rows.append(tuple(SCHEMA_MAP.keys()) + (dumps(geometry),))
 
     return rows
