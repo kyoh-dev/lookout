@@ -1,12 +1,22 @@
+from logging import getLogger
 from dataclasses import dataclass
 from argparse import ArgumentParser
 from pathlib import Path
+
+from fiona import open as open_geofile
+
+from db.core.connection import get_connection
+from db.load.config import PROCESS_MAP, setup_logging
+from db.load.common import execute_insert
+
+logger = getLogger(__package__)
 
 
 @dataclass
 class ProgramArguments:
     filepath: Path
     destination_table: str
+    truncate: bool
 
 
 def parse_args() -> ProgramArguments:
@@ -16,25 +26,61 @@ def parse_args() -> ProgramArguments:
     )
 
     parser.add_argument(
-        "--filepath", "-f", type=Path, help="File path of the dataset to be loaded"
+        "--filepath",
+        "-f",
+        type=Path,
+        required=True,
+        help="File path of the dataset to be loaded",
     )
 
     parser.add_argument(
         "--destination-table",
         "-d",
         type=str,
+        required=True,
         help="Name of the table to load the dataset to",
+    )
+
+    parser.add_argument(
+        "--truncate",
+        "-t",
+        type=bool,
+        default=False,
+        help="Truncate the table before loading",
     )
 
     return ProgramArguments(**parser.parse_args().__dict__)
 
 
-def main(filepath: Path, destination_table: str) -> None:
-    # TODO: Read header and check expected columns exist in schema.
-    # TODO: Check source CRS is in expected projection (7844).
-    ...
+def main(filepath: Path, destination_table: str, truncate: bool) -> None:
+    if destination_table not in PROCESS_MAP.keys():
+        raise RuntimeError(f"No process defined for {destination_table}")
+
+    process = PROCESS_MAP[destination_table]
+
+    with open_geofile(filepath) as stream:
+        if stream.crs["init"] != "epsg:7844":
+            raise RuntimeError(f"Unexpected CRS found in dataset: {stream.crs}")
+
+        if not (
+            process.expected_columns.issubset(
+                set(stream.meta["schema"]["properties"].keys())
+            )
+        ):
+            raise RuntimeError("Unexpected schema found in source dataset")
+
+        rows = process.row_collector(stream)
+        execute_insert(
+            get_connection(),
+            rows,
+            process.table_info,
+            truncate,
+        )
+
+    logger.info("Process finished")
 
 
 if __name__ == "__main__":
+    setup_logging()
     args = parse_args()
-    main(args.filepath, args.destination_table)
+    main(args.filepath, args.destination_table, args.truncate)

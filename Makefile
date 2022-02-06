@@ -20,5 +20,8 @@ mypy:
 migrate: $(ENV_FILE)
 	@dbmate -e TEST_DATABASE_URL up
 
+rollback: $(ENV_FILE)
+	@dbmate -e TEST_DATABASE_URL down
+
 $(ENV_FILE):
 	@cp -v $(ENV_FILE).example $(ENV_FILE)

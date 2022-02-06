@@ -30,10 +30,14 @@ CREATE TABLE public.rec_sites
     fishing_descr TEXT,
     fossicking BOOLEAN,
     fossicking_descr TEXT,
+    hang_gliding BOOLEAN,
+    hang_gliding_descr TEXT,
     horse_riding BOOLEAN,
     horse_riding_descr TEXT,
     paddling BOOLEAN,
     paddling_descr TEXT,
+    picnicing BOOLEAN,
+    picnicing_descr TEXT,
     noise_warning BOOLEAN,
     noise_warning_descr TEXT,
     rock_climbing BOOLEAN,
@@ -46,7 +50,9 @@ CREATE TABLE public.rec_sites
     num_bbq_pit INTEGER,
     num_bbq_gas INTEGER,
     num_bbq_wood INTEGER,
-    geometry GEOMETRY(POINT, 7844) NOT NULL
+    geometry GEOMETRY(POINT, 7844) NOT NULL,
+    CONSTRAINT rec_sites_unique_key_unique
+        UNIQUE (unique_key)
 );
 
 -- migrate:down

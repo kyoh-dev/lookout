@@ -3,6 +3,7 @@
 local_test
 .DS_Store
 .env
+.envrc
 # Python specific
 db/.venv
 __pycache__
