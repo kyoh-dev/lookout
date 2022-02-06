@@ -21,6 +21,12 @@ REC_SITES_SCHEMA = DataSchema(
         "WALKDOG_C",
         "WILDLIFE_C",
     },
+    uppercase_attributes={
+        "DIS_ACCESS",
+        "CLOS_STAT",
+        "CLOS_REAS",
+        "CAMPERVAN_TYPE",
+    },
     schema_map={
         "UFI": "unique_key",
         "VERS_DATE": "version_date",

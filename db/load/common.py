@@ -50,6 +50,7 @@ class DataSchema:
     """Class for holding information about a dataset's schema"""
 
     descr_attributes: set[str]
+    uppercase_attributes: set[str]
     schema_map: dict[str, str]
 
 

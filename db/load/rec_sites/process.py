@@ -1,4 +1,6 @@
+from re import sub
 from json import dumps
+from typing import Optional
 
 from fiona.collection import Collection
 
@@ -11,6 +13,22 @@ TABLE_INFO = DBTable(
     columns=tuple(REC_SITES_SCHEMA.schema_map.values()) + ("geometry",),
     geometry_transform="ST_SetSRID(ST_GeomFromGeoJSON(%s), 7844)",
 )
+
+
+def clean_uppercase(value: str) -> Optional[str]:
+    value = sub(" +", " ", value).strip().capitalize()
+    if value == "None":
+        return None
+
+    return value
+
+
+def clean_descr(value: str) -> str:
+    value = sub(" +", " ", value).strip()
+    if not value.endswith("."):
+        value += "."
+
+    return value
 
 
 def collect_rows(collection: Collection) -> list[tuple[str, ...]]:
@@ -29,19 +47,14 @@ def collect_rows(collection: Collection) -> list[tuple[str, ...]]:
         if properties["TB_VISITOR"] == "TRAIL BIKE VISITOR AREA":
             properties["TB_VISITOR"] = "Y"
 
-        # If the column is a description, make sure it's stripped and has a full stop at the end.
-        for column, value in properties.keys():
-            if (
-                column in REC_SITES_SCHEMA.descr_attributes
-                and value is not None
-            ):
-                value = value.strip()
+        for column, value in properties.items():
+            # If the column is uppercase, strip and NULLify it.
+            if column in REC_SITES_SCHEMA.uppercase_attributes and value is not None:
+                properties[column] = clean_uppercase(properties[column])
 
-                if not value.endswith("."):
-                    value += "."
-
-        # TODO: Cast string columns with a value of 'NONE' to None/NULL
-
+            # If the column is a description, strip and add a full stop.
+            if column in REC_SITES_SCHEMA.descr_attributes and value is not None:
+                properties[column] = clean_descr(properties[column])
 
         rows.append(
             tuple([properties[col] for col in REC_SITES_SCHEMA.schema_map])
