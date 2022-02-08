@@ -4,9 +4,9 @@ from typing import Optional
 
 from fiona.collection import Collection
 
-from db.core.exceptions import DataQualityError, DataTypeError
-from db.load.common import DBTable
-from db.load.rec_sites.schema import REC_SITES_SCHEMA
+from db_loader.core.exceptions import DataQualityError, DataTypeError
+from db_loader.load.common import DBTable
+from db_loader.load.rec_sites.schema import REC_SITES_SCHEMA
 
 TABLE_INFO = DBTable(
     table_name="rec_sites",

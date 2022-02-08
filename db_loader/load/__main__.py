@@ -5,9 +5,9 @@ from pathlib import Path
 
 from fiona import open as open_geofile
 
-from db.core.connection import get_connection
-from db.load.config import PROCESS_MAP, setup_logging
-from db.load.common import execute_insert
+from db_loader.core.connection import get_connection
+from db_loader.load.config import PROCESS_MAP, setup_logging
+from db_loader.load.common import execute_insert
 
 logger = getLogger(__package__)
 
