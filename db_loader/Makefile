@@ -6,23 +6,19 @@ build:
 	@docker-compose build
 
 start:
-	@docker-compose up -d db db-loader
+	@docker-compose -f ../docker-compose.yml up -d db db-loader
 
 bash: $(ENV_FILE)
-	@docker-compose run --rm db-loader bash
+	@docker-compose -f ../docker-compose.yml run --rm db-loader bash
 
 clean:
-	@docker-compose down --volumes --rmi all
-
-test:
-	@docker-compose build db-loader
-	@docker-compose up --build --abort-on-container-exit --exit-code-from db-loader-test db-test db-loader-test
+	@docker-compose -f ../docker-compose.yml down --volumes --rmi all
 
 format:
-	@black ./db_loader/
+	@black ./
 
 mypy:
-	@mypy ./db_loader/
+	@mypy ./
 
 migrate: $(ENV_FILE)
 	@dbmate -e TEST_DATABASE_URL up
