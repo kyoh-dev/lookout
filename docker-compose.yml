@@ -4,25 +4,13 @@ services:
   db-loader:
     image: db-loader
     container_name: db-loader
-    build: db_loader
+    build: ./db
     environment:
       DATABASE_URL: "postgres://test:test@db:35434/lookout?sslmode=disable"
     depends_on:
-      - db
+      - db-test
     volumes:
-      - ./db_loader:/app
-
-  db:
-    image: postgis/postgis:14-master
-    container_name: lookout-db
-    ports:
-      - '35434:5432'
-    volumes:
-      - db_data:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=lookout
-      - POSTGRES_USER=test
-      - POSTGRES_PASSWORD=test
+      - ./db:/app
 
   db-test:
     image: postgis/postgis:14-master

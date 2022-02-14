@@ -2,7 +2,7 @@ FROM python:3.9-slim-bullseye
 
 RUN useradd -m -d /home/appuser appuser
 USER appuser
-WORKDIR /db_loader
+WORKDIR /db
 
 ENV PATH=/home/appuser/.local/bin:$PATH \
     PYTHONUNBUFFERED=1                  \

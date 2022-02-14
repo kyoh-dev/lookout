@@ -1,18 +1,9 @@
 ENV_FILE ?= .env
 
-.PHONY: build start bash clean format mypy migrate rollback
-
-build:
-	@docker-compose build
-
-start:
-	@docker-compose -f ../docker-compose.yml up -d db db-loader
+.PHONY: bash format mypy migrate rollback
 
 bash: $(ENV_FILE)
 	@docker-compose -f ../docker-compose.yml run --rm db-loader bash
-
-clean:
-	@docker-compose -f ../docker-compose.yml down --volumes --rmi all
 
 format:
 	@black ./

@@ -1,4 +1,4 @@
-from db_loader.load.common import DataSchema
+from db.load.common import DataSchema
 
 REC_SITES_SCHEMA = DataSchema(
     descr_attributes={
