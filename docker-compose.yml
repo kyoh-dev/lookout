@@ -3,9 +3,10 @@ version: '3.8'
 services:
   db-loader:
     image: db-loader
+    container_name: db-loader
     build: db_loader
     environment:
-      DATABASE_URL: "postgres://test:test@localhost:35434/lookout_db?sslmode=disable"
+      DATABASE_URL: "postgres://test:test@db:35434/lookout?sslmode=disable"
     depends_on:
       - db
     volumes:
@@ -13,11 +14,12 @@ services:
 
   db-loader-test:
     image: db-loader-test
+    container_name: db-loader-test
     build:
       context: db_loader
       dockerfile: Dockerfile.tests
     environment:
-      TEST_DATABASE_URL: "postgres://test:test@localhost:35434/lookout_db_test?sslmode=disable"
+      TEST_DATABASE_URL: "postgres://test:test@db-test:35434/lookout?sslmode=disable"
     volumes:
       - ./db_loader:/app
     depends_on:
@@ -25,7 +27,7 @@ services:
 
   db:
     image: postgis/postgis:14-master
-    container_name: lookout_db
+    container_name: lookout-db
     ports:
       - '35434:5432'
     volumes:
@@ -37,7 +39,7 @@ services:
 
   db-test:
     image: postgis/postgis:14-master
-    container_name: lookout_db_test
+    container_name: lookout-db-test
     ports:
       - '35434:5432'
     volumes:
