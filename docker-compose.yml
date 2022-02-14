@@ -12,19 +12,6 @@ services:
     volumes:
       - ./db_loader:/app
 
-  db-loader-test:
-    image: db-loader-test
-    container_name: db-loader-test
-    build:
-      context: db_loader
-      dockerfile: Dockerfile.tests
-    environment:
-      TEST_DATABASE_URL: "postgres://test:test@db-test:35434/lookout?sslmode=disable"
-    volumes:
-      - ./db_loader:/app
-    depends_on:
-      - db-test
-
   db:
     image: postgis/postgis:14-master
     container_name: lookout-db
