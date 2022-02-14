@@ -1,6 +1,7 @@
 from logging import getLogger
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from collections.abc import Callable
+from typing import Optional
 
 from psycopg2.sql import Composed, SQL, Identifier, Placeholder
 from psycopg2.extensions import connection
@@ -49,9 +50,9 @@ class DBTable:
 class DataSchema:
     """Class for holding information about a dataset's schema"""
 
-    descr_attributes: set[str]
-    uppercase_attributes: set[str]
     schema_map: dict[str, str]
+    descr_attributes: set[str] = field(default_factory=set)
+    uppercase_attributes: set[str] = field(default_factory=set)
 
 
 @dataclass
