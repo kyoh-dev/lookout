@@ -1,5 +1,5 @@
 -- migrate:up
-CREATE TABLE public.rec_sites
+CREATE TABLE public.rec_site
 (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     unique_key TEXT NOT NULL,

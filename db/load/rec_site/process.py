@@ -4,13 +4,13 @@ from fiona.collection import Collection
 
 from db.load.transforms import clean_descr, clean_uppercase
 from db.core.exceptions import DataQualityError
-from db.load.common import DBTable
-from db.load.rec_sites.schema import REC_SITES_SCHEMA
+from db.load.common import DbTable
+from db.load.rec_site.schema import REC_SITE_SCHEMA
 
-TABLE_INFO = DBTable(
+TABLE_INFO = DbTable(
     table_name="rec_site",
-    columns=tuple(REC_SITES_SCHEMA.schema_map.values()) + ("geometry",),
-    geometry_transform="ST_SetSRID(ST_GeomFromGeoJSON(%s), 7844)",
+    columns=tuple(REC_SITE_SCHEMA.schema_map.values()) + ("geometry",),
+    geometry_transform="ST_GeomFromGeoJSON(%s)",
 )
 
 
@@ -28,14 +28,14 @@ def collect_rows(collection: Collection) -> list[tuple[str, ...]]:
             properties["TB_VISITOR"] = "Y"
 
         for column, value in properties.items():
-            if column in REC_SITES_SCHEMA.uppercase_attributes and value is not None:
+            if column in REC_SITE_SCHEMA.uppercase_attributes and value is not None:
                 properties[column] = clean_uppercase(properties[column])
 
-            if column in REC_SITES_SCHEMA.descr_attributes and value is not None:
+            if column in REC_SITE_SCHEMA.descr_attributes and value is not None:
                 properties[column] = clean_descr(properties[column])
 
         rows.append(
-            tuple([properties[col] for col in REC_SITES_SCHEMA.schema_map])
+            tuple([properties[col] for col in REC_SITE_SCHEMA.schema_map])
             + (json.dumps(geometry),)
         )
 

@@ -1,7 +1,6 @@
 from logging import getLogger
 from dataclasses import dataclass, field
 from collections.abc import Callable
-from typing import Optional
 
 from psycopg2.sql import Composed, SQL, Identifier, Placeholder
 from psycopg2.extensions import connection
@@ -11,7 +10,7 @@ logger = getLogger(__package__)
 
 
 @dataclass
-class DBTable:
+class DbTable:
     """Class for storing database table information and formatting queries"""
 
     table_name: str
@@ -57,17 +56,17 @@ class DataSchema:
 
 @dataclass
 class LoadProcess:
-    """Class for holding a load processes relevant objects and functions"""
+    """Class for holding a load process's relevant objects and functions"""
 
     expected_columns: set[str]
     row_collector: Callable
-    table_info: DBTable
+    table_info: DbTable
 
 
 def execute_insert(
     conn: connection,
     data_rows: list[tuple[str, ...]],
-    table_info: DBTable,
+    table_info: DbTable,
     truncate: bool = False,
 ) -> None:
     with conn:

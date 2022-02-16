@@ -6,7 +6,9 @@ from pathlib import Path
 from fiona import open as open_geofile
 
 from db.core.connection import get_connection
-from db.load.config import PROCESS_MAP, setup_logging
+from db.core.exceptions import MetadataError
+from db.load.config import setup_logging
+from db.load.table_process_map import TABLE_PROCESS_MAP
 from db.load.common import execute_insert
 
 logger = getLogger(__package__)
@@ -53,21 +55,21 @@ def parse_args() -> ProgramArguments:
 
 
 def main(filepath: Path, destination_table: str, truncate: bool) -> None:
-    if destination_table not in PROCESS_MAP.keys():
+    if destination_table not in TABLE_PROCESS_MAP.keys():
         raise RuntimeError(f"No process defined for {destination_table}")
 
-    process = PROCESS_MAP[destination_table]
+    process = TABLE_PROCESS_MAP[destination_table]
 
     with open_geofile(filepath) as stream:
         if stream.crs["init"] != "epsg:7844":
-            raise RuntimeError(f"Unexpected CRS found in dataset: {stream.crs}")
+            raise MetadataError(f"Unexpected CRS found in dataset: {stream.crs}")
 
         if not (
             process.expected_columns.issubset(
                 set(stream.meta["schema"]["properties"].keys())
             )
         ):
-            raise RuntimeError("Unexpected schema found in source dataset")
+            raise MetadataError("Unexpected schema found in source dataset")
 
         rows = process.row_collector(stream)
         execute_insert(

@@ -1,6 +1,6 @@
 from db.load.common import DataSchema
 
-REC_SITES_SCHEMA = DataSchema(
+REC_SITE_SCHEMA = DataSchema(
     schema_map={
         "UFI": "unique_key",
         "VERS_DATE": "version_date",
