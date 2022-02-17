@@ -50,10 +50,10 @@ CREATE TABLE public.rec_site
     num_bbq_pit INTEGER,
     num_bbq_gas INTEGER,
     num_bbq_wood INTEGER,
-    geometry GEOMETRY(POINT, 7844) NOT NULL,
+    rep_point GEOMETRY(POINT, 7844) NOT NULL,
     CONSTRAINT rec_sites_unique_key_unique
         UNIQUE (unique_key)
 );
 
 -- migrate:down
-DROP TABLE public.rec_sites;
+DROP TABLE public.rec_site;
