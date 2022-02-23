@@ -8,8 +8,8 @@ import (
 	"github.com/paulmach/orb/geojson"
 )
 
-type park struct {
-	ID              int                  `json:"id"`
+type Park struct {
+	ID              int                  `param:"id" json:"id"`
 	Name            string               `json:"name"`
 	Type            string               `json:"type"`
 	AreaSqm         float64              `json:"areaSqm"`
@@ -21,7 +21,7 @@ type park struct {
 	Geometry        geojson.MultiPolygon `json:"geometry"`
 }
 
-func (p *park) getPark(db *db.Pool) error {
+func (p *Park) GetPark(db *db.Pool) error {
 	query := `
 	SELECT 
 	  name,
@@ -42,6 +42,6 @@ func (p *park) getPark(db *db.Pool) error {
 		&p.VersionDate, &p.Geometry)
 }
 
-func getParks(db *db.Pool) ([]park, error) {
+func getParks(db *db.Pool) ([]Park, error) {
 	return nil, errors.New("not implemented")
 }
