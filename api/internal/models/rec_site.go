@@ -1,8 +1,10 @@
 package models
 
 import (
-	"database/sql"
+	"context"
 	"errors"
+
+	"github.com/kyoh-dev/lookout/internal/db"
 	"github.com/paulmach/orb/geojson"
 )
 
@@ -53,13 +55,79 @@ type recsite struct {
 	NumBbqPit          int           `json:"numBbqPit"`
 	NumBbqGas          int           `json:"numBbqGas"`
 	NumBbqWood         int           `json:"numBbqWood"`
+	VersionDate        string        `json:"versionDate"`
 	RepPoint           geojson.Point `json:"repPoint"`
 }
 
-func (r *recsite) getRecSite(db *sql.DB) error {
-	return errors.New("not implemented")
+func (r *recsite) getRecSite(db *db.Service) error {
+	query := `
+	SELECT
+	  name,
+	  latitude,
+	  longitude,
+	  disabed_access,
+	  access_descr,
+	  fee,
+	  comments,
+	  maintained_by,
+	  closed_status,
+	  closed_descr,
+	  closed_on,
+	  reopen_on,
+	  camping,
+	  camping_descr,
+	  campervanning,
+	  campervanning_descr,
+	  campervan_type,
+	  trail_bike_area,
+	  trail_bike_area_descr,
+	  heritage,
+	  heritage_descr,
+	  fishing,
+	  fishing_descr,
+	  fossicking,
+	  fossicking_descr,
+	  hang_gliding,
+	  hang_gliding_descr,
+	  horse_riding,
+	  horse_riding_descr,
+	  paddling,
+	  paddling_descr,
+	  picnicing,
+	  picnicing_descr,
+	  noise_warning,
+	  noise_warning_descr,
+	  rock_climbing,
+	  rock_climbing_descr,
+	  dog_walking,
+	  dog_walking_descr,
+	  wildlife,
+	  wildlife_descr,
+	  num_bbq_electric,
+	  num_bbq_pit,
+	  num_bbq_gas,
+	  num_bbq_wood,
+	  version_date,
+	  rep_point
+	FROM public.rec_site
+	WHERE id = $1;
+	`
+
+	return db.Conn.QueryRow(context.Background(), query, r.ID).Scan(
+		&r.Name, &r.Latitude, &r.Longitude, &r.DisabledAccess,
+		&r.AccessDescr, &r.Fee, &r.Comments, &r.MaintainedBy,
+		&r.ClosedStatus, &r.ClosedOn, &r.ReopenOn, &r.ClosedReason,
+		&r.Camping, &r.CampingDescr, &r.Campervanning, &r.CampervanningDescr,
+		&r.CampervanType, &r.TrailBikeArea, &r.TrailBikeAreaDescr,
+		&r.Heritage, &r.HeritageDescr, &r.Fishing, &r.FishingDescr,
+		&r.Fossicking, r.FossickingDescr, &r.HangGliding, &r.HangGlidingDescr,
+		&r.HorseRiding, &r.HorseRidingDescr, &r.Paddling, &r.PaddlingDescr,
+		&r.Picnicing, &r.PicnicingDescr, &r.NoiseWarning, &r.NoiseWarningDescr,
+		&r.RockClimbing, &r.RockClimbingDescr, &r.DogWalking, &r.DogWalkingDescr,
+		&r.Wildlife, &r.WildlifeDescr, &r.NumBbqElectric, &r.NumBbqPit,
+		&r.NumBbqGas, r.NumBbqWood, &r.VersionDate, &r.RepPoint)
 }
 
-func getRecSites(db *sql.DB, start, count int) ([]recsite, error) {
+func getRecSites(db *db.Service, start, count int) ([]recsite, error) {
 	return nil, errors.New("not implemented")
 }
