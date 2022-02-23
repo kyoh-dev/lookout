@@ -5,11 +5,11 @@ from pathlib import Path
 
 from fiona import open as open_geofile
 
-from db.core.connection import get_connection
-from db.core.exceptions import MetadataError
-from db.load.config import setup_logging
-from db.load.table_process_map import TABLE_PROCESS_MAP
-from db.load.common import execute_insert
+from data.core.connection import get_connection
+from data.core.exceptions import MetadataError
+from data.load.config import setup_logging
+from data.load.table_process_map import TABLE_PROCESS_MAP
+from data.load.common import execute_insert
 
 logger = getLogger(__package__)
 

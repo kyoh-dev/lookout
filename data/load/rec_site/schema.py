@@ -1,4 +1,4 @@
-from db.load.common import DataSchema
+from data.load.common import DataSchema
 
 REC_SITE_SCHEMA = DataSchema(
     schema_map={

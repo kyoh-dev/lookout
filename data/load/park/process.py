@@ -2,10 +2,10 @@ import json
 
 from fiona.collection import Collection
 
-from db.load.transforms import clean_uppercase
-from db.core.exceptions import DataQualityError
-from db.load.common import DbTable
-from db.load.park.schema import PARK_SCHEMA
+from data.load.transforms import clean_uppercase
+from data.core.exceptions import DataQualityError
+from data.load.common import DbTable
+from data.load.park.schema import PARK_SCHEMA
 
 TABLE_INFO = DbTable(
     table_name="park",

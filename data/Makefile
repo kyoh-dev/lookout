@@ -9,7 +9,7 @@ install:
 	)
 
 bash: $(ENV_FILE)
-	@docker-compose -f ../docker-compose.yml run --rm db-loader bash
+	@docker-compose run --rm db-loader bash
 
 format: venv
 	@python -m black .
