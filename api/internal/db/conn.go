@@ -15,11 +15,11 @@ const (
 	maxConnIdleTime = 30 // seconds
 )
 
-type Service struct {
+type Pool struct {
 	Conn *pgxpool.Pool
 }
 
-func (s *Service) Connect() error {
+func (s *Pool) Connect() error {
 	poolConfig, err := pgxpool.ParseConfig(os.Getenv("DATABASE_URL"))
 	if err != nil {
 		return fmt.Errorf("unable to parse database connection string: %w", err)

@@ -59,7 +59,7 @@ type recsite struct {
 	RepPoint           geojson.Point `json:"repPoint"`
 }
 
-func (r *recsite) getRecSite(db *db.Service) error {
+func (r *recsite) getRecSite(db *db.Pool) error {
 	query := `
 	SELECT
 	  name,
@@ -128,6 +128,6 @@ func (r *recsite) getRecSite(db *db.Service) error {
 		&r.NumBbqGas, r.NumBbqWood, &r.VersionDate, &r.RepPoint)
 }
 
-func getRecSites(db *db.Service, start, count int) ([]recsite, error) {
+func getRecSites(db *db.Pool, start, count int) ([]recsite, error) {
 	return nil, errors.New("not implemented")
 }

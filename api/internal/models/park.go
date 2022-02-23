@@ -21,7 +21,7 @@ type park struct {
 	Geometry        geojson.MultiPolygon `json:"geometry"`
 }
 
-func (p *park) getPark(db *db.Service) error {
+func (p *park) getPark(db *db.Pool) error {
 	query := `
 	SELECT 
 	  name,
@@ -42,6 +42,6 @@ func (p *park) getPark(db *db.Service) error {
 		&p.VersionDate, &p.Geometry)
 }
 
-func getParks(db *db.Service) ([]park, error) {
+func getParks(db *db.Pool) ([]park, error) {
 	return nil, errors.New("not implemented")
 }
