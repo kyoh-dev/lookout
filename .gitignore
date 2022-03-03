@@ -5,23 +5,10 @@ local_test
 .env
 .envrc
 # Python specific
-data/.venv
+.venv/
 __pycache__
 *.py[cod]
 .mypy_cache
 # JS specific
 app/node_modules
 app/*.tsbuildinfo
-# Golang specific
-# Binaries for programs and plugins
-*.exe
-*.exe~
-*.dll
-*.so
-*.dylib
-# Test binary, built with `go test -c`
-*.test
-# Output of the go coverage tool, specifically when used with LiteIDE
-*.out
-# Go workspace file
-go.work

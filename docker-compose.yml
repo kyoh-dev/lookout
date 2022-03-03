@@ -1,16 +1,15 @@
 version: '3.8'
 
 services:
-  db-loader:
-    image: db-loader
-    container_name: db-loader
-    build: ./data
+  app:
+    build:
+      context: .
     environment:
       DATABASE_URL: "postgres://test:test@db:35434/lookout?sslmode=disable"
     depends_on:
       - db-test
     volumes:
-      - ./data:/app
+      - ./:/app
 
   db-test:
     image: postgis/postgis:14-master

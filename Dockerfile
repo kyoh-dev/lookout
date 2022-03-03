@@ -16,6 +16,6 @@ ENV PATH=/home/appuser/.local/bin:$PATH \
 COPY --chown=appuser requirements.txt /tmp/requirements.txt
 RUN pip install --user -r /tmp/requirements.txt && rm /tmp/requirements.txt
 
-CMD ["python3"]
-
 COPY --chown=appuser . .
+
+CMD ["python3"]
