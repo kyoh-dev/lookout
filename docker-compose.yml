@@ -1,15 +1,15 @@
 version: '3.8'
 
 services:
-  app:
+  data:
     build:
-      context: .
+      context: ./data
     environment:
       DATABASE_URL: "postgres://test:test@db:35434/lookout?sslmode=disable"
     depends_on:
       - db-test
     volumes:
-      - ./:/app
+      - ./data:/data
 
   db-test:
     image: postgis/postgis:14-master

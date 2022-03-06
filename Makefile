@@ -15,7 +15,7 @@ clean:
 	@docker-compose down --volumes --rmi all
 
 bash: $(ENV_FILE)
-	@docker-compose run --rm app bash
+	@docker-compose run --rm data bash
 
 format: venv
 	@python -m black .
