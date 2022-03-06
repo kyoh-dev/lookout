@@ -1,4 +1,4 @@
-from data.load.common import DataSchema
+from load.common import DataSchema
 
 PARK_SCHEMA = DataSchema(
     schema_map={

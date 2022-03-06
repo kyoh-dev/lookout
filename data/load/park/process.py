@@ -2,10 +2,10 @@ import json
 
 from fiona.collection import Collection
 
-from data.load.transforms import clean_uppercase
-from data.core.exceptions import DataQualityError
-from data.load.common import DbTable
-from data.load.park.schema import PARK_SCHEMA
+from core.exceptions import DataQualityError
+from load.transforms import strip_and_capitalise
+from load.common import DbTable
+from .schema import PARK_SCHEMA
 
 TABLE_INFO = DbTable(
     table_name="park",
@@ -26,7 +26,7 @@ def collect_rows(collection: Collection) -> list[tuple[str, ...]]:
 
         for column, value in properties.items():
             if column in PARK_SCHEMA.uppercase_attributes and value is not None:
-                properties[column] = clean_uppercase(properties[column])
+                properties[column] = strip_and_capitalise(properties[column])
 
         rows.append(
             tuple([properties[col] for col in PARK_SCHEMA.schema_map])

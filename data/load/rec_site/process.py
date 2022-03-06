@@ -2,10 +2,10 @@ import json
 
 from fiona.collection import Collection
 
-from data.load.transforms import clean_descr, clean_uppercase
-from data.core.exceptions import DataQualityError
-from data.load.common import DbTable
-from data.load.rec_site.schema import REC_SITE_SCHEMA
+from core.exceptions import DataQualityError
+from load.transforms import strip_and_punctuate, strip_and_capitalise
+from load.common import DbTable
+from .schema import REC_SITE_SCHEMA
 
 TABLE_INFO = DbTable(
     table_name="rec_site",
@@ -29,10 +29,10 @@ def collect_rows(collection: Collection) -> list[tuple[str, ...]]:
 
         for column, value in properties.items():
             if column in REC_SITE_SCHEMA.uppercase_attributes and value is not None:
-                properties[column] = clean_uppercase(properties[column])
+                properties[column] = strip_and_capitalise(properties[column])
 
             if column in REC_SITE_SCHEMA.descr_attributes and value is not None:
-                properties[column] = clean_descr(properties[column])
+                properties[column] = strip_and_punctuate(properties[column])
 
         rows.append(
             tuple([properties[col] for col in REC_SITE_SCHEMA.schema_map])

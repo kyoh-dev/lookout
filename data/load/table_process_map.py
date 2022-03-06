@@ -1,11 +1,11 @@
-from data.load.common import LoadProcess
-from data.load.rec_site.schema import REC_SITE_SCHEMA
-from data.load.rec_site.process import (
+from .common import LoadProcess
+from .rec_site.schema import REC_SITE_SCHEMA
+from .rec_site.process import (
     TABLE_INFO as REC_SITE_TABLE,
     collect_rows as rec_site_row_collector,
 )
-from data.load.park.schema import PARK_SCHEMA
-from data.load.park.process import (
+from .park.schema import PARK_SCHEMA
+from .park.process import (
     TABLE_INFO as PARK_TABLE,
     collect_rows as park_row_collector,
 )
