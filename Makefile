@@ -1,8 +1,8 @@
-ENV_FILE ?= .env
+ENV_FILE	?=	.envrc
 
 .PHONY: build start clean bash format mypy migrate rollback
 
-venv:
+setup: $(ENV_FILE)
 	@test -d .venv || python3 -m venv .venv
 
 build:
@@ -14,20 +14,20 @@ start:
 clean:
 	@docker-compose down --volumes --rmi all
 
-bash: $(ENV_FILE)
+bash:
 	@docker-compose run --rm data bash
 
-format: venv
+format: setup
 	@python -m black .
 
-mypy: venv
+mypy: setup
 	@python -m mypy .
 
-migrate: $(ENV_FILE)
-	@dbmate -e TEST_DATABASE_URL -d "./data/migrations" up
+migrate:
+	@docker-compose run --rm data dbmate -d "./migrations" up
 
-rollback: $(ENV_FILE)
-	@dbmate -e TEST_DATABASE_URL -d "./data/migrations" down
+rollback:
+	@@docker-compose run --rm data dbmate -d "./migrations" down
 
 $(ENV_FILE):
 	@cp -v $(ENV_FILE).example $(ENV_FILE)

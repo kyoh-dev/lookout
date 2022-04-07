@@ -5,11 +5,11 @@ services:
     build:
       context: ./data
     environment:
-      DATABASE_URL: "postgres://test:test@db:35434/lookout?sslmode=disable"
+      DATABASE_URL: "postgres://test:test@db-test:5432/lookout?sslmode=disable"
     depends_on:
       - db-test
     volumes:
-      - ./data:/data
+      - ./data:/app
 
   db-test:
     image: postgis/postgis:14-master

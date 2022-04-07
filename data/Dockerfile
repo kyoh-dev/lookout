@@ -1,4 +1,15 @@
-FROM python:3.9-slim-bullseye
+FROM debian:bullseye-slim
+
+RUN apt-get update && apt-get install -y \
+    curl \
+    python-is-python3 \
+    python3-pip \
+    python3-wheel
+
+RUN curl -qfsSL -o /usr/local/bin/dbmate https://github.com/amacneil/dbmate/releases/download/v1.12.1/dbmate-linux-amd64 \
+    && chmod +x /usr/local/bin/dbmate
+
+ENV LANG=C.UTF-8
 
 RUN useradd -m -d /home/appuser appuser
 USER appuser
