@@ -9,7 +9,7 @@ services:
     depends_on:
       - db-test
     volumes:
-      - ./data:/data
+      - ./data:/app
 
   db-test:
     image: postgis/postgis:14-master
