@@ -14,7 +14,7 @@ start:
 clean:
 	@docker-compose down --volumes --rmi all
 
-bash: $(ENV_FILE)
+bash:
 	@docker-compose run --rm data bash
 
 format: venv

@@ -5,8 +5,8 @@ from pathlib import Path
 
 from fiona import open as open_geofile
 
-from core.connection import get_connection
-from core.exceptions import MetadataError
+from ..core.connection import get_connection
+from ..core.exceptions import MetadataError
 from .config import setup_logging
 from .table_process_map import TABLE_PROCESS_MAP
 from .common import execute_insert
