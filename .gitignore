@@ -2,8 +2,8 @@
 .idea
 local_test
 .DS_Store
-.env
-.envrc
+**/.env
+**/.envrc
 # Python specific
 .venv/
 __pycache__
