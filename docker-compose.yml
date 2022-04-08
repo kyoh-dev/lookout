@@ -11,6 +11,14 @@ services:
     volumes:
       - ./data:/app
 
+  app:
+    build:
+      context: ./app
+    depends_on:
+      - db-test
+    volumes:
+      - ./app:/app
+
   db-test:
     image: postgis/postgis:14-master
     container_name: lookout-db-test
