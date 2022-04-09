@@ -6,10 +6,10 @@ setup: $(ENV_FILE)
 	@test -d .venv || python3 -m venv .venv
 
 format: setup
-	@python -m black ./data
+	@python -m black .
 
 mypy: setup
-	@python -m mypy ./data
+	@python -m mypy .
 
 bash:
 	@docker-compose -f ../docker-compose.yml run --rm data bash
