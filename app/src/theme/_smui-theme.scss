@@ -4,22 +4,23 @@
 
 // Svelte Colors!
 @use '@material/theme/index' as theme with (
-  $primary: #0D5C63,
-  $secondary: #44A1A0,
-  $surface: #fff,
-  $background: #fff,
-  $error: #D5370B
+	$primary: #0d5c63,
+	$secondary: #44a1a0,
+	$surface: #fff,
+	$background: #fff,
+	$error: #d5370b
 );
 
 html,
 body {
-  background-color: theme.$surface;
-  color: theme.$on-surface;
+	background-color: theme.$surface;
+	color: theme.$on-surface;
+	margin: 0;
 }
 
 a {
-  color: #40b3ff;
+	color: #40b3ff;
 }
 a:visited {
-  color: color.scale(#40b3ff, $lightness: -35%);
+	color: color.scale(#40b3ff, $lightness: -35%);
 }
