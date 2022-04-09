@@ -4,4 +4,3 @@
 
 <h1>About Lookout</h1>
 <h2>FAQ</h2>
-<h2>GitHub</h2>
