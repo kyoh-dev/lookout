@@ -2,9 +2,16 @@ FROM debian:bullseye-slim
 
 # Install python libs
 RUN apt-get update && apt-get install -y \
+    curl \
+    gdal-bin \
+    libgdal-dev \
     python-is-python3 \
     python3-pip \
     python3-wheel
+
+# Install dbmate for migrations
+RUN curl -qfsSL -o /usr/local/bin/dbmate https://github.com/amacneil/dbmate/releases/download/v1.15.0/dbmate-linux-amd64 \
+    && chmod +x /usr/local/bin/dbmate
 
 ENV LANG=C.UTF-8
 

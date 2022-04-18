@@ -3,7 +3,7 @@ from logging import getLogger
 from psycopg2 import connect, DatabaseError
 from psycopg2.extensions import connection
 
-from loader.core.constants import DATABASE_URL
+from dbcopy.core.constants import DATABASE_URL
 
 logger = getLogger(__name__)
 

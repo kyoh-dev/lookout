@@ -3,9 +3,9 @@ from dataclasses import dataclass
 from argparse import ArgumentParser
 from pathlib import Path
 
-from loader.core.connection import get_connection
-from loader.process.config import setup_logging
-from loader.process.sql import execute_copy
+from dbcopy.core.connection import get_connection
+from dbcopy.process.config import setup_logging
+from dbcopy.process.sql import execute_copy
 
 logger = getLogger(__package__)
 

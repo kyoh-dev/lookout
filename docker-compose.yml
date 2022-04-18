@@ -3,18 +3,19 @@ version: "3.8"
 services:
   dataops:
     build: ./dataops
-    environment:
-      DATABASE_URL: "postgres://test:test@db-test:5432/lookout?sslmode=disable"
     depends_on:
-      - db-test
+      - db
     volumes:
       - ./dataops:/app
+      - ${TEST_DATA}:/data
+    env_file:
+      - ./dataops/.env
 
-  db-test:
+  db:
     image: postgis/postgis:14-master
-    container_name: lookout-db-test
+    container_name: lookout-db
     ports:
-      - "35434:5432"
+      - "27901:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
     environment:

@@ -1,1 +1,9 @@
+.venv/
+__pycache__
+*.py[cod]
+.mypy_cache
+.gitignore
+.env
+.env.example
+mypy.ini
 requirements.dev.txt
