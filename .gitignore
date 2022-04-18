@@ -3,7 +3,7 @@
 local_test
 .DS_Store
 **/.env
-**/.envrc
+dataops/.envrc
 # Python specific
 .venv/
 __pycache__

@@ -1,1 +1,0 @@
-export TEST_DATABASE_URL="postgres://test:test@localhost:35434/lookout?sslmode=disable"
