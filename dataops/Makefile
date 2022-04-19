@@ -1,6 +1,8 @@
+ENV_FILE	?=	.env
+
 .PHONY: setup format mypy bash migrate rollback
 
-setup:
+setup: $(ENV_FILE)
 	@test -d .venv || python3 -m venv .venv
 
 format: setup
@@ -9,11 +11,14 @@ format: setup
 mypy: setup
 	@python -m mypy .
 
-bash:
+bash: $(ENV_FILE)
 	@docker-compose -f ../docker-compose.yml run --rm dataops
 
-migrate:
+migrate: $(ENV_FILE)
 	@docker-compose -f ../docker-compose.yml run --rm dataops dbmate -d "./migrations" up
 
-rollback:
+rollback: $(ENV_FILE)
 	@docker-compose -f ../docker-compose.yml run --rm dataops dbmate -d "./migrations" down
+
+$(ENV_FILE):
+	@cp -v $(ENV_FILE).example $(ENV_FILE)

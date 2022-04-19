@@ -12,4 +12,5 @@ fi
 PG_CONN="PG:host=${PG_HOST} port=${PG_PORT} dbname=${PG_DBNAME} user=${PG_USER} password=${PG_PASSWORD}"
 
 ogr2ogr -progress -overwrite -f "PostgreSQL" "${PG_CONN}" "$FILEPATH" \
-  -nln "$TABLE" --config PG_USE_COPY YES --config OGR_TRUNCATE YES
+  -nln "$TABLE" -nlt PROMOTE_TO_MULTI \
+  --config PG_USE_COPY YES --config OGR_TRUNCATE YES

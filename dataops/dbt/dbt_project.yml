@@ -1,8 +1,8 @@
-name: 'lookout'
-version: '0.0.1'
+name: "lookout"
+version: "0.0.1"
 config-version: 2
 
-profile: 'lookout'
+profile: "lookout"
 
 model-paths: ["models"]
 analysis-paths: ["analyses"]
@@ -18,5 +18,9 @@ clean-targets:
 
 models:
   lookout:
-    example:
+    staging:
       +materialized: view
+      +schema: layers
+    final:
+      +materialized: table
+      +schema: layers

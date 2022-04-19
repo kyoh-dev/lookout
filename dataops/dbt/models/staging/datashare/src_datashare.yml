@@ -1,0 +1,39 @@
+version: 2
+
+sources:
+  - name: datashare
+    schema: raw
+    tables:
+      - name: park
+        columns:
+          - name: shape
+            description: Vector geometry object as a MultiPolygon
+            tests:
+              - not_null
+          - name: areasqm
+            description: Area of the individual vector shape
+            tests:
+              - not_null
+          - name: name
+            description: Name of the park or reservation
+            tests:
+              - not_null
+
+      - name: rec_site
+        columns:
+          - name: shape
+            description: Vector geometry object as a Point
+            tests:
+              - not_null
+          - name: name
+            description: Name of the recreation site
+            tests:
+              - not_null
+          - name: latitude
+            description: Latitude of the recreation site
+            tests:
+              - not_null
+          - name: longitude
+            description: Longitude of the recreation site
+            tests:
+              - not_null

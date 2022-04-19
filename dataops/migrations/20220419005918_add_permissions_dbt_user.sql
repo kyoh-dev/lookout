@@ -1,0 +1,13 @@
+-- migrate:up
+GRANT CREATE ON DATABASE lookout TO dbt_user;
+GRANT USAGE ON SCHEMA raw TO dbt_user;
+GRANT SELECT ON ALL TABLES IN SCHEMA raw TO dbt_user;
+ALTER DEFAULT PRIVILEGES IN SCHEMA raw GRANT SELECT ON TABLES TO dbt_user;
+ALTER ROLE dbt_user SET search_path TO raw, layers, public;
+
+-- migrate:down
+ALTER ROLE dbt_user RESET search_path;
+ALTER DEFAULT PRIVILEGES IN SCHEMA raw REVOKE SELECT ON TABLES FROM dbt_user;
+REVOKE SELECT ON ALL TABLES IN SCHEMA raw FROM dbt_user;
+REVOKE USAGE ON SCHEMA raw FROM dbt_user;
+REVOKE CREATE ON DATABASE lookout FROM dbt_user;
