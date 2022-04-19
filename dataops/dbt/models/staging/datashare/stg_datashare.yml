@@ -3,6 +3,19 @@ version: 2
 models:
   - name: stg_datashare__park
     columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+      - name: site_name
+        tests:
+          - not_null
+      - name: area_sqm
+        tests:
+          - not_null
+      - name: hectares
+        tests:
+          - not_null
       - name: geometry
         tests:
           - not_null

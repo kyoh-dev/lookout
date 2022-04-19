@@ -6,7 +6,7 @@ select
   total_area,
   manager as site_manager,
   veac_study,
-  iucn as iucn_code,
+  upper(iucn) as iucn_code,
   estab_date as established_at,
   last_mod as modified_at,
   vers_date as versioned_at,

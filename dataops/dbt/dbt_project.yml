@@ -23,5 +23,5 @@ models:
   lookout:
     staging:
       +materialized: view
-    final:
+    layers:
       +materialized: table
