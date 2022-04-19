@@ -16,11 +16,12 @@ clean-targets:
   - "target"
   - "dbt_packages"
 
+vars:
+  'dbt_date:time_zone': 'Australia/Melbourne'
+
 models:
   lookout:
     staging:
       +materialized: view
-      +schema: layers
     final:
       +materialized: table
-      +schema: layers

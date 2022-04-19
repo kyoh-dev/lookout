@@ -6,16 +6,61 @@ sources:
     tables:
       - name: park
         columns:
-          - name: shape
-            description: Vector geometry object as a MultiPolygon
+          - name: objectid
+            description: Primary key ID of the data row
+            tests:
+              - unique
+              - not_null
+          - name: name
+            description: Name of the park or reserve
+            tests:
+              - not_null
+          - name: name_short
+            description: Short name of the park or reserve
+            tests:
+              - not_null
+          - name: area_type
+            description: Type of park or reserve
+            tests:
+              - not_null
+          - name: total_area
+            description: Total area of the park or reserve's included vector objects
+            tests:
+              - not_null
+          - name: manager
+            description: State government body that manages this park or reserve
+            tests:
+              - not_null
+          - name: veac_study
+            description: VEAC study of the area
+            tests:
+              - dbt_expectations.expect_column_to_exist
+          - name: iucn
+            description: IUCN code of the park or reserve
+            tests:
+              - dbt_expectations.expect_column_to_exist
+          - name: estab_date
+            description: Date the park or reserve was established
+            tests:
+              - dbt_expectations.expect_column_to_exist
+          - name: last_mod
+            description: Date the data row was last modified
+            tests:
+              - dbt_expectations.expect_column_to_exist
+          - name: vers_date
+            description: Version date of the dataset
             tests:
               - not_null
           - name: areasqm
             description: Area of the individual vector shape
             tests:
               - not_null
-          - name: name
-            description: Name of the park or reservation
+          - name: hectares
+            description: Area in hectares of the individual vector object
+            tests:
+              - not_null
+          - name: shape
+            description: Vector geometry object as a MultiPolygon
             tests:
               - not_null
 

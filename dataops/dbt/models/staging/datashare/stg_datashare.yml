@@ -1,8 +1,7 @@
 version: 2
 
 models:
-  - name: stg_park
-    schema: layers
+  - name: stg_datashare__park
     columns:
       - name: geometry
         tests:
