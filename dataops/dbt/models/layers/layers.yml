@@ -7,6 +7,9 @@ models:
         tests:
           - not_null
           - unique
+      - name: iucn_code
+        tests:
+          - capitalised
       - name: geometry
         tests:
           - not_null
