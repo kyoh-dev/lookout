@@ -4,13 +4,17 @@ sources:
   - name: datashare
     schema: raw
     tables:
-      - name: park
+      - name: datashare__park
         columns:
           - name: objectid
             description: Primary key ID of the data row
             tests:
               - unique
               - not_null
+          - name: prims_id
+            description: ID of the total site area, spans multiple records with the same name
+            tests:
+              - dbt_expectations.expect_column_to_exist
           - name: name
             description: Name of the park or reserve
             tests:
@@ -64,12 +68,8 @@ sources:
             tests:
               - not_null
 
-      - name: rec_site
+      - name: datashare__rec_site
         columns:
-          - name: shape
-            description: Vector geometry object as a Point
-            tests:
-              - not_null
           - name: name
             description: Name of the recreation site
             tests:
@@ -80,5 +80,9 @@ sources:
               - not_null
           - name: longitude
             description: Longitude of the recreation site
+            tests:
+              - not_null
+          - name: shape
+            description: Vector geometry object as a Point
             tests:
               - not_null

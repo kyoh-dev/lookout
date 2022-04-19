@@ -1,5 +1,6 @@
 select
   objectid as id,
+  prims_id as site_id,
   name as site_name,
   name_short as site_name_short,
   area_type as type,
@@ -14,4 +15,4 @@ select
   hectares,
   shape as geometry
 
-from {{ source('datashare', 'park') }}
+from {{ source('datashare', 'datashare__park') }}

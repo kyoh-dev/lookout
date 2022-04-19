@@ -10,3 +10,4 @@ models:
       - name: geometry
         tests:
           - not_null
+          - is_multipolygon
