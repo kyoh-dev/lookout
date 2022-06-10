@@ -5,5 +5,3 @@ __pycache__
 .gitignore
 .env
 .env.example
-mypy.ini
-requirements.dev.txt

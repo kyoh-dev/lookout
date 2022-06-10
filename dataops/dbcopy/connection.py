@@ -1,14 +1,14 @@
 from logging import getLogger
 
 from psycopg2 import connect, DatabaseError
-from psycopg2.extensions import connection
+from psycopg2.extensions import connection as PgConnection
 
-from dbcopy.core.constants import DATABASE_URL
+from .constants import DATABASE_URL
 
 logger = getLogger(__name__)
 
 
-def get_connection() -> connection:
+def get_connection() -> PgConnection:
     try:
         conn = connect(DATABASE_URL)
     except DatabaseError as ex:

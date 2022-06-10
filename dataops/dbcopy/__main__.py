@@ -3,9 +3,9 @@ from dataclasses import dataclass
 from argparse import ArgumentParser
 from pathlib import Path
 
-from dbcopy.core.connection import get_connection
-from dbcopy.process.config import setup_logging
-from dbcopy.process.sql import execute_copy
+from .config import setup_logging
+from .connection import get_connection
+from .sql import execute_copy
 
 logger = getLogger(__package__)
 
@@ -32,8 +32,8 @@ def parse_args() -> ProgramArguments:
     )
 
     parser.add_argument(
-        "--destination-table",
-        "-d",
+        "--table",
+        "-t",
         type=str,
         required=True,
         help="Name of the table to load the dataset to",

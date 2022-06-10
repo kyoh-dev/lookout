@@ -1,15 +1,6 @@
 ENV_FILE	?=	.env
 
-.PHONY: setup format mypy bash migrate rollback
-
-setup: $(ENV_FILE)
-	@test -d .venv || python3 -m venv .venv
-
-format: setup
-	@python -m black .
-
-mypy: setup
-	@python -m mypy .
+.PHONY: bash migrate rollback
 
 bash: $(ENV_FILE)
 	@docker-compose -f ../docker-compose.yml run --rm dataops

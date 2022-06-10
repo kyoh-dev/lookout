@@ -8,7 +8,6 @@ services:
     volumes:
       - ./dataops:/app
       - ${TEST_DATA}:/data
-      - ./dataops/dbt/profiles/dev.yml:/home/appuser/.dbt/profiles.yml
     env_file:
       - ./dataops/.env
 
